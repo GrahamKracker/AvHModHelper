@@ -76,7 +76,7 @@ public abstract class AvHMod : MelonMod
     }
 
     /// <summary>
-    ///     Called when a map is loaded
+    ///     When scene is called, can't be the main menu.
     ///     <br />
     ///     Equivalent to OnSceneWasInitialized, but only called when the scene is not the main menu
     /// </summary>
@@ -85,7 +85,7 @@ public abstract class AvHMod : MelonMod
     }
 
     /// <summary>
-    ///     Called after a bloon collides with the player
+    ///     Called after player being in collision range of bloons / getting hit.
     ///     <br />
     ///     Equivalent to a HarmonyPostFix on Enemy.OnTriggerEnter
     /// </summary>
@@ -94,7 +94,7 @@ public abstract class AvHMod : MelonMod
     }
 
     /// <summary>
-    ///     Called before a bloon collides with the player
+    ///     Called before player being in collision range of bloons / player not being hit yet.
     ///     <br />
     ///     Equivalent to a HarmonyPreFix on Enemy.OnTriggerEnter
     /// </summary>
@@ -103,9 +103,9 @@ public abstract class AvHMod : MelonMod
         return true;
     }
     /// <summary>
-    ///     Called when the mainmenu is loaded
+    ///     Called at the same time as the main menu is loaded.
     ///     <br />
-    ///     Equivalent to OnSceneWasInitialized, but only called when the scene is the main menu
+    ///     Equivalent to OnSceneWasInitialized, if scene is the main menu.
     /// </summary>
     public virtual void OnMainMenuLoaded()
     {
@@ -114,14 +114,23 @@ public abstract class AvHMod : MelonMod
     /// <summary>
     ///     Called after a bloon is stunned
     ///     <br />
-    ///     Equivalent to a HarmonyPostFix on Enemy.Start
+    ///     Equivalent to a HarmonyPostFix on Enemy.Stun
     /// </summary>
     public virtual void OnBloonStunned(Enemy bloon)
     {
     }
 
     /// <summary>
-    ///     Called before cash is added to the player's balance, return false to prevent the cash from being added
+    ///     Called before a bloon is stunned
+    ///     <br />
+    ///     Equivalent to a HarmonyPrefix on Enemy.Stun
+    /// </summary>
+    public virtual void PreBloonStunned(Enemy bloon)
+    {
+    }
+
+    /// <summary>
+    ///     Called after cash is added to the player's balance
     ///     <br />
     ///     Equivalent to a HarmonyPostFix on Currency.UpdateCurrency
     /// </summary>
@@ -132,7 +141,7 @@ public abstract class AvHMod : MelonMod
     /// <summary>
     ///     Called before cash is added to the player's balance, return false to prevent the cash from being added
     ///     <br />
-    ///     Equivalent to a HarmonyPostFix on Currency.UpdateCurrency
+    ///     Equivalent to a HarmonyPrefix on Currency.UpdateCurrency
     /// </summary>
     public virtual bool PreCashAdded(Currency currency, ref int amount, ref bool canDouble)
     {
@@ -142,7 +151,7 @@ public abstract class AvHMod : MelonMod
     /// <summary>
     ///     Called before a bloon is damaged, return false to prevent the damage
     ///     <br />
-    ///     Equivalent to a HarmonyPostFix on Enemy.Start
+    ///     Equivalent to a HarmonyPrefix on Enemy.RecieveDamage
     /// </summary>
     public virtual bool PreBloonDamaged(Enemy bloon, int dmg, string type, Projectile proj, bool damageOnSpawn, bool regrowthBlock)
     {
@@ -152,25 +161,25 @@ public abstract class AvHMod : MelonMod
     /// <summary>
     ///     Called after a bloon is damaged
     ///     <br />
-    ///     Equivalent to a HarmonyPostFix on Enemy.Start
+    ///     Equivalent to a HarmonyPostFix on Enemy.RecieveDamage
     /// </summary>
     public virtual void PostBloonDamaged(Enemy bloon, int dmg, string type, Projectile proj, bool damageOnSpawn, bool regrowthBlock)
     {
     }
 
     /// <summary>
-    ///     Called after a bloon's properties are first loaded into the game
+    ///     Called after a bloon is created.
     ///     <br />
-    ///     Equivalent to a HarmonyPostFix on Enemy.Start
+    ///     Equivalent to a HarmonyPostFix on Enemy.OnCreate
     /// </summary>
     public virtual void PostBloonLoaded(Enemy bloon)
     {
     }
 
     /// <summary>
-    ///     Called before a bloon's properties are first loaded into the game.
+    ///     Called before a bloon is created.
     ///     <br />
-    ///     Equivalent to a HarmonyPostFix on Enemy.Start
+    ///     Equivalent to a HarmonyPrefix on Enemy.OnCreate
     /// </summary>
     public virtual bool PreBloonLoaded(ref Enemy bloon)
     {
