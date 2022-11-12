@@ -1,0 +1,15 @@
+{
+  "profiles": {
+    "AvH": {
+      "commandName": "Executable",
+      "executablePath": "$(AvH)/Apes vs Helium.exe",
+      "workingDirectory": "$(AvH)"
+    },
+    "AvH (ML Debug)": {
+      "commandName": "Executable",
+      "executablePath": "$(AvH)/Apes vs Helium.exe",
+      "workingDirectory": "$(AvH)",
+      "commandLineArgs": "--melonloader.debug"
+    }
+  }
+}

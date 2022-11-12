@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+        <TargetFramework>net48</TargetFramework>
+        <RootNamespace>AvHModHelper</RootNamespace>
+        <Configurations>Debug;Release</Configurations>
+        <Nullable>enable</Nullable>
+        <AssemblyName>AvHModHelper</AssemblyName>
+        <LangVersion>latest</LangVersion>
+    </PropertyGroup>
+    <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+        <Optimize>false</Optimize>
+        <DebugType>embedded</DebugType>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+        <Optimize>true</Optimize>
+        <DebugType>none</DebugType>
+    </PropertyGroup>
+    <ItemGroup>
+      <Folder Include="Api\Helpers" />
+      <Folder Include="Assets" />
+      <Folder Include="Extensions\Bloons" />
+      <Folder Include="Extensions\Display" />
+      <Folder Include="Extensions\Towers" />
+    </ItemGroup>
+    <Import Project="..\AvH.targets" />
+</Project>
