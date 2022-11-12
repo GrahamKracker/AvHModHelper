@@ -12,6 +12,7 @@ internal static class Enemy_Start
         Helper.PerformHook(mod => result &= mod.PreBloonLoaded(ref __instance));
         return result;
     }
+
     [HarmonyPostfix]
     internal static void Postfix(Enemy __instance)
     {

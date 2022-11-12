@@ -23,11 +23,7 @@ internal class MainMod : AvHMod
     public override void OnUpdate()
     {
         base.OnUpdate();
-        if (Input.GetKey(KeyCode.Space) && !(bool)EquipmentScript.instance.gameObject.GetComponent<FirstPersonController>().GetPrivateValue("m_Jumping"))
-        {
-            
-            EquipmentScript.instance.gameObject.GetComponent<FirstPersonController>().SetPrivateValue("m_Jump", true);
-        }
+        if (Input.GetKey(KeyCode.Space) && !(bool) EquipmentScript.instance.gameObject.GetComponent<FirstPersonController>().GetPrivateValue("m_Jumping")) EquipmentScript.instance.gameObject.GetComponent<FirstPersonController>().SetPrivateValue("m_Jump", true);
     }
 }
 
@@ -42,10 +38,9 @@ internal static class TypeExtensions
     {
         return obj.GetType().GetField(field, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
     }
-    
+
     public static object GetPrivateValue<T>(this T obj, string name)
     {
         return obj.GetType().GetField(name, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public).GetValue(obj);
     }
 }
-

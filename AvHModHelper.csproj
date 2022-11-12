@@ -16,11 +16,12 @@
         <DebugType>none</DebugType>
     </PropertyGroup>
     <ItemGroup>
-      <Folder Include="Api\Helpers" />
-      <Folder Include="Assets" />
-      <Folder Include="Extensions\Bloons" />
-      <Folder Include="Extensions\Display" />
-      <Folder Include="Extensions\Towers" />
+        <Folder Include="Api\Helpers" />
+        <Folder Include="Assets" />
+        <Folder Include="Extensions\Bloons" />
+        <Folder Include="Extensions\Display" />
+        <Folder Include="Extensions\Towers" />
+        <Folder Include="Patches\FirstPersonController" />
     </ItemGroup>
     <Import Project="..\AvH.targets" />
 </Project>

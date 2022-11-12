@@ -12,6 +12,7 @@ internal static class Enemy_ReceiveDamage
         Helper.PerformHook(mod => result &= mod.PreBloonDamaged(__instance, dmg, type, proj, damageOnSpawn, regrowthBlock));
         return result;
     }
+
     [HarmonyPostfix]
     internal static void Postfix(Enemy __instance, int dmg, string type, Projectile proj, bool damageOnSpawn, bool regrowthBlock)
     {

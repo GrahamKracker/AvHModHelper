@@ -2,16 +2,14 @@
 
 using System.IO;
 using System.Reflection;
-using MelonLoader;
-using MarchingBytes;
 
 /// <summary>
-/// Extensions for AvHMods
+///     Extensions for AvHMods
 /// </summary>
 internal static class AvHModExt
 {
     /// <summary>
-    /// Get the name of this mod from the dll name
+    ///     Get the name of this mod from the dll name
     /// </summary>
     public static string GetModName(this AvHMod AvHMod)
     {
@@ -19,7 +17,8 @@ internal static class AvHModExt
     }
 
     /// <summary>
-    /// Get the personal mod directory for this specific mod. Useful for keeping this mod's files seperate from other mods."
+    ///     Get the personal mod directory for this specific mod. Useful for keeping this mod's files seperate from other
+    ///     mods."
     /// </summary>
     /// <param name="AvHMod"></param>
     /// <returns></returns>
@@ -29,7 +28,8 @@ internal static class AvHModExt
     }
 
     /// <summary>
-    /// Get the personal mod directory for this specific mod. Useful for keeping this mod's files seperate from other mods."
+    ///     Get the personal mod directory for this specific mod. Useful for keeping this mod's files seperate from other
+    ///     mods."
     /// </summary>
     /// <param name="AvHMod"></param>
     /// <param name="createIfNotExists">Create the mod's directory if it doesn't exist yet?</param>
@@ -42,10 +42,8 @@ internal static class AvHModExt
     }
 
 
-
     internal static Assembly GetAssembly(this MelonMod mod)
     {
         return mod.MelonAssembly.Assembly;
     }
 }
-

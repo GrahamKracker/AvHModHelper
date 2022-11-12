@@ -1,8 +1,5 @@
 ﻿namespace AvHModHelper.Patches.Enemy;
 
-using System;
-using Enemy = global::Enemy;
-
 [HarmonyPatch(typeof(Currency), nameof(Currency.UpdateCurrency))]
 internal static class Currency_UpdateCurrency
 {
@@ -19,7 +16,7 @@ internal static class Currency_UpdateCurrency
     }
 
     [HarmonyPostfix]
-    internal static void Postfix(Currency __instance,  int amount,  bool canDouble)
+    internal static void Postfix(Currency __instance, int amount, bool canDouble)
     {
         Helper.PerformHook(mod => mod.PostCashAdded(__instance, amount, canDouble));
     }
