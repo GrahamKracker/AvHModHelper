@@ -10,14 +10,23 @@
 namespace AvHModHelper;
 
 using System.Linq;
+using System.Reflection;
 using Extensions.Types;
 using UnityStandardAssets.Characters.FirstPerson;
 
 internal class MainMod : AvHMod
 {
+    private MelonPreferences_Category ourFirstCategory;
+    private MelonPreferences_Entry<string> ourFirstEntry;
+
+
     public override void OnApplicationStart()
     {
         MelonLogger.Msg("AvHModHelper Loaded");
+        ourFirstCategory = MelonPreferences.CreateCategory("AvHModHelper");
+        ourFirstEntry = ourFirstCategory.CreateEntry<string>("TargetsFilePath", "");
+        MelonPreferences.Save();
+        TargetsMaker.CreateTargetsFile(ourFirstEntry.Value);
     }
 
     public override void OnUpdate()
@@ -42,11 +51,14 @@ internal class MainMod : AvHMod
                 var monkeybasic = shadowMonkey.Find("Monkey Basic");
                 var monkeybase = monkeybasic.Find("Monke Base");
                 monkeybase.GetComponent<SkinnedMeshRenderer>().enabled = false;
-
+                uObject.Destroy(shadowMonkey.gameObject.GetComponent<Animator>());
+                uObject.Destroy(shadowMonkey.gameObject.GetComponent<BlinkingScript>());
+                
                 shadowMonkey.gameObject.AddComponent<ShadowMonkeyMono>();
+
                 monkeybase.GetComponent<SkinnedMeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
                 shadowMonkey.name = "Player Shadow";
-                shadowMonkey.localPosition = new Vector3(0, - 0.9f, - 1.0002f);
+                shadowMonkey.localPosition = new Vector3(0f, -0.9f, 0f);
                 shadowMonkey.localRotation = Quaternion.Euler(0, 0, 0);
                 shadowMonkey.localScale = new Vector3(1, 1.75f, 1);
                 monkeybase.GetComponent<SkinnedMeshRenderer>().enabled = true;

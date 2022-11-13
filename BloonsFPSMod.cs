@@ -86,11 +86,11 @@ public abstract class AvHMod : MelonMod
     }
 
     /// <summary>
-    ///     Called after the MenuScript(main menu) is loaded
+    ///     Called after the MenuScript is loaded
     ///     <br />
     ///     Equivalent to a HarmonyPostFix on MenuScript.OnEnable
     /// </summary>
-    public virtual void OnMainMenu(MenuScript mainMenu)
+    public virtual void OnMainMenuScript(MenuScript mainMenu)
     {
     }
     /// <summary>
