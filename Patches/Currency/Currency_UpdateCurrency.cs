@@ -1,4 +1,6 @@
-﻿namespace AvHModHelper.Patches.Enemy;
+﻿namespace AvHModHelper.Patches.Currency;
+
+using Currency = global::Currency;
 
 [HarmonyPatch(typeof(Currency), nameof(Currency.UpdateCurrency))]
 internal static class Currency_UpdateCurrency

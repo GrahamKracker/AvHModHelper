@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using Extensions;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public abstract class AvHMod : MelonMod
 {
@@ -84,6 +85,32 @@ public abstract class AvHMod : MelonMod
     {
     }
 
+    /// <summary>
+    ///     Called after the MenuScript(main menu) is loaded
+    ///     <br />
+    ///     Equivalent to a HarmonyPostFix on MenuScript.OnEnable
+    /// </summary>
+    public virtual void OnMainMenu(MenuScript mainMenu)
+    {
+    }
+    /// <summary>
+    ///     Called when a map is loaded
+    ///     <br />
+    ///     Equivalent to OnSceneWasInitialized, but only called when the scene is not the main menu
+    /// </summary>
+    public virtual void PostInputReceived(FirstPersonController player, float speed)
+    {
+    }
+    
+    /// <summary>
+    ///     Called when a map is loaded
+    ///     <br />
+    ///     Equivalent to OnSceneWasInitialized, but only called when the scene is not the main menu
+    /// </summary>
+    public virtual bool PreInputReceived(ref FirstPersonController player, ref float speed)
+    {
+        return true;
+    }
     /// <summary>
     ///     Called after a bloon collides with the player
     ///     <br />

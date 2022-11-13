@@ -1,5 +1,4 @@
 ﻿using System;
-using AvHModHelper;
 
 [assembly: MelonInfo(typeof(MainMod), "AvHModHelper", "1.0.0", "GrahamKracker")]
 [assembly: MelonGame("Sayan", "Apes vs Helium")]
@@ -10,7 +9,8 @@ using AvHModHelper;
 
 namespace AvHModHelper;
 
-using System.Reflection;
+using System.Linq;
+using Extensions.Types;
 using UnityStandardAssets.Characters.FirstPerson;
 
 internal class MainMod : AvHMod
@@ -25,22 +25,34 @@ internal class MainMod : AvHMod
         base.OnUpdate();
         if (Input.GetKey(KeyCode.Space) && !(bool) EquipmentScript.instance.gameObject.GetComponent<FirstPersonController>().GetPrivateValue("m_Jumping")) EquipmentScript.instance.gameObject.GetComponent<FirstPersonController>().SetPrivateValue("m_Jump", true);
     }
-}
 
-internal static class TypeExtensions
-{
-    public static void SetPrivateValue<T>(this T obj, string name, object value)
+    [HarmonyPatch(typeof(EquipmentScript), "Start")]
+    internal static class EquipmentScriptStart
     {
-        obj.GetType().GetField(name, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public).SetValue(obj, value);
-    }
+        [HarmonyPostfix]
+        public static void Postfix(ref EquipmentScript __instance)
+        {
+            var root = __instance.gameObject.scene.GetRootGameObjects().ToList();
+            for (int i = 0; i < __instance.transform.childCount; i++)
+            {
+                if (__instance.transform.GetChild(i).name != "FirstPersonCharacter") continue;
 
-    public static FieldInfo GetPrivateFieldInfo<T>(this T obj, string field)
-    {
-        return obj.GetType().GetField(field, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public);
-    }
+                var person = __instance.transform.GetChild(i);
+                var shadowMonkey = uObject.Instantiate(root.Find(x => x.name == "Shop").transform.Find("Monkey Follower"), __instance.transform);
+                var monkeybasic = shadowMonkey.Find("Monkey Basic");
+                var monkeybase = monkeybasic.Find("Monke Base");
+                monkeybase.GetComponent<SkinnedMeshRenderer>().enabled = false;
 
-    public static object GetPrivateValue<T>(this T obj, string name)
-    {
-        return obj.GetType().GetField(name, BindingFlags.NonPublic | BindingFlags.Instance | BindingFlags.Public).GetValue(obj);
+                shadowMonkey.gameObject.AddComponent<ShadowMonkeyMono>();
+                monkeybase.GetComponent<SkinnedMeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
+                shadowMonkey.name = "Player Shadow";
+                shadowMonkey.localPosition = new Vector3(0, - 0.9f, - 1.0002f);
+                shadowMonkey.localRotation = Quaternion.Euler(0, 0, 0);
+                shadowMonkey.localScale = new Vector3(1, 1.75f, 1);
+                monkeybase.GetComponent<SkinnedMeshRenderer>().enabled = true;
+
+                break;
+            }
+        }
     }
 }
