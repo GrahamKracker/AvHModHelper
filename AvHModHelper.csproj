@@ -21,6 +21,7 @@
         <Folder Include="Extensions\Bloons" />
         <Folder Include="Extensions\Display" />
         <Folder Include="Extensions\Towers" />
+        <Folder Include="Patches\EquipmentScript" />
     </ItemGroup>
     <Import Project="..\AvH.targets" />
 </Project>
