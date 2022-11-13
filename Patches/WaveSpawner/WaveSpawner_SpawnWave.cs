@@ -6,8 +6,8 @@ using WaveSpawner = global::WaveSpawner;
 internal static class WaveSpawner_SpawnWave
 {
     [HarmonyPostfix]
-    internal static void Postfix(WaveSpawner __instance, WaveSpawner.Wave _wave)
+    internal static void Postfix(ref WaveSpawner __instance, ref WaveSpawner.Wave _wave)
     {
-        Helper.PerformHook(mod => mod.OnWaveStarted(__instance, _wave));
+        Helper.PerformHook(mod => mod.OnWaveStarted(ref __instance, ref _wave));
     }
 }

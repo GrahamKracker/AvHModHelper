@@ -6,16 +6,16 @@ using WaveSpawner = global::WaveSpawner;
 internal static class WaveSpawner_Start
 {
     [HarmonyPrefix]
-    public static void Prefix(WaveSpawner __instance)
+    public static void Prefix(ref WaveSpawner __instance)
     {
         var result = true;
-        Helper.PerformHook(mod => result &= mod.PreWaveSpawnerInit(__instance));
+        Helper.PerformHook(mod => result &= mod.PreWaveSpawnerInit(ref __instance));
         return result;
     }
 
     [HarmonyPostfix]
-    public static void Postfix(WaveSpawner __instance)
+    public static void Postfix(ref WaveSpawner __instance)
     {
-        Helper.PerformHook(mod => mod.PostWaveSpawnerInit(__instance));
+        Helper.PerformHook(mod => mod.PostWaveSpawnerInit(ref __instance));
     }
 }

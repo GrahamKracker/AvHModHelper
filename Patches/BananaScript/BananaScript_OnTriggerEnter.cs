@@ -1,4 +1,6 @@
-﻿namespace AvHModHelper.Patches.Enemy;
+﻿namespace AvHModHelper.Patches.BananaScript;
+
+using BananaScript = global::BananaScript;
 
 [HarmonyPatch(typeof(BananaScript), "OnTriggerEnter")]
 internal static class BananaScript_OnTriggerEnter

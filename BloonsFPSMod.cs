@@ -116,7 +116,7 @@ public abstract class AvHMod : MelonMod
     ///     <br />
     ///     Equivalent to a HarmonyPostFix on Enemy.Stun
     /// </summary>
-    public virtual void OnBloonStunned(Enemy bloon)
+    public virtual void PostBloonStunned(Enemy bloon)
     {
     }
 
@@ -125,8 +125,9 @@ public abstract class AvHMod : MelonMod
     ///     <br />
     ///     Equivalent to a HarmonyPrefix on Enemy.Stun
     /// </summary>
-    public virtual void PreBloonStunned(Enemy bloon)
+    public virtual bool PreBloonStunned(Enemy bloon)
     {
+        return true;
     }
 
     /// <summary>
@@ -191,7 +192,7 @@ public abstract class AvHMod : MelonMod
     ///     <br />
     ///     Equivalent to a HarmonyPrefix on Currency.Start
     /// </summary>
-    public virtual void PreCashLoaded(Currency currency)
+    public virtual bool PreCashLoaded(Currency currency)
     {
         return true;
     }
@@ -210,7 +211,7 @@ public abstract class AvHMod : MelonMod
     ///     <br />
     ///     Equivalent to a HarmonyPrefix on BananaScript.OnTriggerEnter
     /// </summary>
-    public virtual void PreBananaPickUp(ref Collider other)
+    public virtual bool PreBananaPickUp(ref Collider other)
     {
         return true;
     }
@@ -229,7 +230,7 @@ public abstract class AvHMod : MelonMod
     ///     <br />
     ///     Equivalent to a HarmonyPrefix on PlayerHealth.UpdateHealth
     /// </summary>
-    public virtual void PreHealthAdded(PlayerHealth health, int amount)
+    public virtual bool PreHealthAdded(PlayerHealth health, int amount)
     {
         return true;
     }
@@ -248,7 +249,7 @@ public abstract class AvHMod : MelonMod
     ///     <br />
     ///     Equivalent to a HarmonyPrefix on GameManagerScript.Start
     /// </summary>
-    public virtual void PreGameManagerInit(GameManagerScript manager)
+    public virtual bool PreGameManagerInit(GameManagerScript manager)
     {
         return true;
     }
@@ -297,7 +298,7 @@ public abstract class AvHMod : MelonMod
     ///     <br />
     ///     Equivalent to a HarmonyPostFix on WaveSpawner.Start
     /// </summary>
-    public virtual void PreWaveSpawnerInit(WaveSpawner spawner)
+    public virtual bool PreWaveSpawnerInit(WaveSpawner spawner)
     {
         return true;
     }
@@ -325,7 +326,7 @@ public abstract class AvHMod : MelonMod
     ///     <br />
     ///     Equivalent to a HarmonyPostFix on WaveSpawner.Update
     /// </summary>
-    public virtual void PreWaveUpdate(WaveSpawner spawner)
+    public virtual bool PreWaveUpdate(WaveSpawner spawner)
     {
         return true;
     }

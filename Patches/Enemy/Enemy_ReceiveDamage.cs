@@ -6,16 +6,16 @@ using Enemy = global::Enemy;
 internal static class Enemy_ReceiveDamage
 {
     [HarmonyPrefix]
-    internal static bool Prefix(Enemy __instance, int dmg, string type, Projectile proj, bool damageOnSpawn, bool regrowthBlock)
+    internal static bool Prefix(ref Enemy __instance, ref int dmg, ref string type, ref Projectile proj, ref bool damageOnSpawn, ref bool regrowthBlock)
     {
         var result = true;
-        Helper.PerformHook(mod => result &= mod.PreBloonDamaged(__instance, dmg, type, proj, damageOnSpawn, regrowthBlock));
+        Helper.PerformHook(mod => result &= mod.PreBloonDamaged(ref __instance, ref dmg, ref type, ref proj, ref damageOnSpawn, ref regrowthBlock));
         return result;
     }
 
     [HarmonyPostfix]
-    internal static void Postfix(Enemy __instance, int dmg, string type, Projectile proj, bool damageOnSpawn, bool regrowthBlock)
+    internal static void Postfix(ref Enemy __instance, ref int dmg, ref string type, ref Projectile proj, ref bool damageOnSpawn, ref bool regrowthBlock)
     {
-        Helper.PerformHook(mod => mod.PostBloonDamaged(__instance, dmg, type, proj, damageOnSpawn, regrowthBlock));
+        Helper.PerformHook(mod => mod.PostBloonDamaged(ref __instance, ref dmg, ref type, ref proj, ref damageOnSpawn, ref regrowthBlock));
     }
 }
