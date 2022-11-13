@@ -3,6 +3,7 @@
 using System;
 using System.Collections.Generic;
 using Extensions;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public abstract class AvHMod : MelonMod
 {
@@ -169,7 +170,7 @@ public abstract class AvHMod : MelonMod
     }
 
     /// <summary>
-    ///     Called after a bloon is created.
+    ///     Called after a bloon is given properties.
     ///     <br />
     ///     Equivalent to a HarmonyPostFix on Enemy.OnCreate
     /// </summary>
@@ -178,7 +179,7 @@ public abstract class AvHMod : MelonMod
     }
 
     /// <summary>
-    ///     Called before a bloon is created.
+    ///     Called before a bloon is given properties.
     ///     <br />
     ///     Equivalent to a HarmonyPrefix on Enemy.OnCreate
     /// </summary>
@@ -261,6 +262,139 @@ public abstract class AvHMod : MelonMod
     /// </summary>
     public virtual void PostGameManagerInit(GameManagerScript manager)
     {
+    }
+
+    /// <summary>
+    ///     Called before the banana decays
+    ///     <br />
+    ///     Equivalent to a HarmonyPrefix on BananaScript.Decay
+    /// </summary>
+    public virtual bool PreBananaDecay(BananaScript banana)
+    {
+        return true;
+    }
+
+    /// <summary>
+    ///     Called after the banana has decayed
+    ///     <br />
+    ///     Equivalent to a HarmonyPrefix on GameManagerScript.Start
+    /// </summary>
+    public virtual void PostBananaDecay(BananaScript banana)
+    {
+    }
+
+    /// <summary>
+    ///     Called after a bloon has spawned
+    ///     <br />
+    ///     Equivalent to a HarmonyPostfix on Enemy.Start
+    /// </summary>
+    public virtual void PostBloonSpawn(Enemy bloon)
+    {
+    }
+
+    /// <summary>
+    ///     Called before a bloon has spawned
+    ///     <br />
+    ///     Equivalent to a HarmonyPrefix on Enemy.Start
+    /// </summary>
+    public virtual bool PreBloonSpawn(ref Enemy bloon)
+    {
+        return true;
+    }
+
+    /// <summary>
+    ///     Called after the player is given health.
+    ///     <br />
+    ///     Equivalent to a HarmonyPostfix on Enemy.Start
+    /// </summary>
+    public virtual void PostHealthLoaded(PlayerHealth health)
+    {
+    }
+
+    /// <summary>
+    ///     Called before the player is given health.
+    ///     <br />
+    ///     Equivalent to a HarmonyPrefix on Enemy.Start
+    /// </summary>
+    public virtual bool PreHealthLoaded(PlayerHealth health)
+    {
+        return true;
+    }
+
+    /// <summary>
+    ///     Called after player sells weapons.
+    ///     <br />
+    ///     Equivalent to a HarmonyPostfix on Currency.CashBack
+    /// </summary>
+    public virtual void PostSell(Currency currency)
+    {
+    }
+
+    /// <summary>
+    ///     Called before player sells weapons.
+    ///     <br />
+    ///     Equivalent to a HarmonyPrefix on Currency.CashBack
+    /// </summary>
+    public virtual bool PreSell(Currency currency)
+    {
+        return true;
+    }
+
+    /// <summary>
+    ///     Called after player attacks.
+    ///     <br />
+    ///     Equivalent to a HarmonyPostfix on Weapon.AttackAnim
+    /// </summary>
+    public virtual void PostAttackAnim(Weapon weapon)
+    {
+    }
+
+    /// <summary>
+    ///     Called before player attacks.
+    ///     <br />
+    ///     Equivalent to a HarmonyPrefix on Weapon.AttackAnim
+    /// </summary>
+    public virtual bool PreAttackAnim(Weapon weapon)
+    {
+        return true;
+    }
+
+    /// <summary>
+    ///     Called after the player's weapon gets switched.
+    ///     <br />
+    ///     Equivalent to a HarmonyPostfix on EquipmentScript.ChangeWeapon
+    /// </summary>
+    public virtual void PostWeaponSwap(EquipmentScript equipment, string weaponName)
+    {
+    }
+
+    /// <summary>
+    ///     Called before the player's weapon gets switched.
+    ///     <br />
+    ///     Equivalent to a HarmonyPrefix on EquipmentScript.ChangeWeapon
+    /// </summary>
+    public virtual bool PreWeaponSwap(EquipmentScript equipment, ref string weaponName)
+    {
+        return true;
+    }
+
+    /// <summary>
+    ///     Called after the player moves.
+    ///     <br />
+    ///     Equivalent to a HarmonyPostfix on EquipmentScript.ChangeWeapon
+    /// </summary>
+    public virtual void PostPlayerMovement(FirstPersonController controller, float speed)
+    {
+    }
+
+    /// <summary>
+    ///     Called before the player moves.
+    ///     <br />
+    ///     Equivalent to a HarmonyPrefix on EquipmentScript.ChangeWeapon
+    /// </summary>
+    public virtual bool PrePlayerMovement(FirstPersonController controller, ref float speed)
+    {
+        return true;
     }
 
     /// <inheritdoc cref="OnEarlyInitializeMelon" />

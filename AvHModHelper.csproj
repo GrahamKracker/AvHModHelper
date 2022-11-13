@@ -21,7 +21,6 @@
         <Folder Include="Extensions\Bloons" />
         <Folder Include="Extensions\Display" />
         <Folder Include="Extensions\Towers" />
-        <Folder Include="Patches\FirstPersonController" />
     </ItemGroup>
     <Import Project="..\AvH.targets" />
 </Project>
