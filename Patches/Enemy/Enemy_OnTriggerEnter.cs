@@ -19,7 +19,7 @@ internal class EnemyOnTriggerEnter_Patch
         return result;
     }
     [HarmonyPostfix]
-    internal static void Postfix(ref Enemy __instance, ref Collider other)
+    internal static void Postfix(Enemy __instance, Collider other)
     {
         var enemy = __instance;
         var collider = other;

@@ -1,5 +1,6 @@
 ﻿namespace AvHModHelper.Patches.FirstPersonController;
 
+
 using UnityStandardAssets.Characters.FirstPerson;
 
 [HarmonyPatch(typeof(FirstPersonController), "GetInput")]

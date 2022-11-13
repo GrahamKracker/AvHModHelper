@@ -77,7 +77,7 @@ public abstract class AvHMod : MelonMod
     }
 
     /// <summary>
-    ///     Called when a map is loaded
+    ///     When scene is called, can't be the main menu.
     ///     <br />
     ///     Equivalent to OnSceneWasInitialized, but only called when the scene is not the main menu
     /// </summary>
@@ -112,7 +112,7 @@ public abstract class AvHMod : MelonMod
         return true;
     }
     /// <summary>
-    ///     Called after a bloon collides with the player
+    ///     Called after player being in collision range of bloons / getting hit.
     ///     <br />
     ///     Equivalent to a HarmonyPostFix on Enemy.OnTriggerEnter
     /// </summary>
@@ -121,7 +121,7 @@ public abstract class AvHMod : MelonMod
     }
 
     /// <summary>
-    ///     Called before a bloon collides with the player
+    ///     Called before player being in collision range of bloons / player not being hit yet.
     ///     <br />
     ///     Equivalent to a HarmonyPreFix on Enemy.OnTriggerEnter
     /// </summary>
@@ -130,9 +130,9 @@ public abstract class AvHMod : MelonMod
         return true;
     }
     /// <summary>
-    ///     Called when the mainmenu is loaded
+    ///     Called at the same time as the main menu is loaded.
     ///     <br />
-    ///     Equivalent to OnSceneWasInitialized, but only called when the scene is the main menu
+    ///     Equivalent to OnSceneWasInitialized, if scene is the main menu.
     /// </summary>
     public virtual void OnMainMenuLoaded()
     {
@@ -141,14 +141,24 @@ public abstract class AvHMod : MelonMod
     /// <summary>
     ///     Called after a bloon is stunned
     ///     <br />
-    ///     Equivalent to a HarmonyPostFix on Enemy.Start
+    ///     Equivalent to a HarmonyPostFix on Enemy.Stun
     /// </summary>
-    public virtual void OnBloonStunned(Enemy bloon)
+    public virtual void PostBloonStunned(Enemy bloon)
     {
     }
 
     /// <summary>
-    ///     Called before cash is added to the player's balance, return false to prevent the cash from being added
+    ///     Called before a bloon is stunned
+    ///     <br />
+    ///     Equivalent to a HarmonyPrefix on Enemy.Stun
+    /// </summary>
+    public virtual bool PreBloonStunned(Enemy bloon)
+    {
+        return true;
+    }
+
+    /// <summary>
+    ///     Called after cash is added to the player's balance
     ///     <br />
     ///     Equivalent to a HarmonyPostFix on Currency.UpdateCurrency
     /// </summary>
@@ -159,7 +169,7 @@ public abstract class AvHMod : MelonMod
     /// <summary>
     ///     Called before cash is added to the player's balance, return false to prevent the cash from being added
     ///     <br />
-    ///     Equivalent to a HarmonyPostFix on Currency.UpdateCurrency
+    ///     Equivalent to a HarmonyPrefix on Currency.UpdateCurrency
     /// </summary>
     public virtual bool PreCashAdded(Currency currency, ref int amount, ref bool canDouble)
     {
@@ -169,7 +179,7 @@ public abstract class AvHMod : MelonMod
     /// <summary>
     ///     Called before a bloon is damaged, return false to prevent the damage
     ///     <br />
-    ///     Equivalent to a HarmonyPostFix on Enemy.Start
+    ///     Equivalent to a HarmonyPrefix on Enemy.RecieveDamage
     /// </summary>
     public virtual bool PreBloonDamaged(Enemy bloon, int dmg, string type, Projectile proj, bool damageOnSpawn, bool regrowthBlock)
     {
@@ -179,27 +189,236 @@ public abstract class AvHMod : MelonMod
     /// <summary>
     ///     Called after a bloon is damaged
     ///     <br />
-    ///     Equivalent to a HarmonyPostFix on Enemy.Start
+    ///     Equivalent to a HarmonyPostFix on Enemy.RecieveDamage
     /// </summary>
     public virtual void PostBloonDamaged(Enemy bloon, int dmg, string type, Projectile proj, bool damageOnSpawn, bool regrowthBlock)
     {
     }
 
     /// <summary>
-    ///     Called after a bloon's properties are first loaded into the game
+    ///     Called after a bloon is given properties.
     ///     <br />
-    ///     Equivalent to a HarmonyPostFix on Enemy.Start
+    ///     Equivalent to a HarmonyPostFix on Enemy.OnCreate
     /// </summary>
     public virtual void PostBloonLoaded(Enemy bloon)
     {
     }
 
     /// <summary>
-    ///     Called before a bloon's properties are first loaded into the game.
+    ///     Called before a bloon is given properties.
     ///     <br />
-    ///     Equivalent to a HarmonyPostFix on Enemy.Start
+    ///     Equivalent to a HarmonyPrefix on Enemy.OnCreate
     /// </summary>
     public virtual bool PreBloonLoaded(ref Enemy bloon)
+    {
+        return true;
+    }
+
+    /// <summary>
+    ///     Called before the game starts and the player is given a balance.
+    ///     <br />
+    ///     Equivalent to a HarmonyPrefix on Currency.Start
+    /// </summary>
+    public virtual bool PreCashLoaded(Currency currency)
+    {
+        return true;
+    }
+
+    /// <summary>
+    ///     Called after the game starts and the player is given a balance.
+    ///     <br />
+    ///     Equivalent to a HarmonyPostFix on Currency.Start
+    /// </summary>
+    public virtual void PostCashLoaded(Currency currency)
+    {
+    }
+
+    /// <summary>
+    ///     Called before a banana is picked up.
+    ///     <br />
+    ///     Equivalent to a HarmonyPrefix on BananaScript.OnTriggerEnter
+    /// </summary>
+    public virtual bool PreBananaPickUp(ref Collider other)
+    {
+        return true;
+    }
+
+    /// <summary>
+    ///     Called after a banana is picked up.
+    ///     <br />
+    ///     Equivalent to a HarmonyPostFix on BananaScript.OnTriggerEnter
+    /// </summary>
+    public virtual void PostBananaPickUp(ref Collider other)
+    {
+    }
+
+    /// <summary>
+    ///     Called before the player is removed health.
+    ///     <br />
+    ///     Equivalent to a HarmonyPrefix on PlayerHealth.UpdateHealth
+    /// </summary>
+    public virtual bool PreHealthAdded(PlayerHealth health, ref int amount)
+    {
+        return true;
+    }
+
+    /// <summary>
+    ///     Called after the player is removed health.
+    ///     <br />
+    ///     Equivalent to a HarmonyPrefix on PlayerHealth.UpdateHealth
+    /// </summary>
+    public virtual void PostHealthAdded(PlayerHealth health, int amount)
+    {
+    }
+
+    /// <summary>
+    ///     Called before the game manager is initialized
+    ///     <br />
+    ///     Equivalent to a HarmonyPrefix on GameManagerScript.Start
+    /// </summary>
+    public virtual bool PreGameManagerInit(GameManagerScript manager)
+    {
+        return true;
+    }
+
+    /// <summary>
+    ///     Called after the game manager is initialized
+    ///     <br />
+    ///     Equivalent to a HarmonyPrefix on GameManagerScript.Start
+    /// </summary>
+    public virtual void PostGameManagerInit(GameManagerScript manager)
+    {
+    }
+
+    /// <summary>
+    ///     Called before the banana decays
+    ///     <br />
+    ///     Equivalent to a HarmonyPrefix on BananaScript.Decay
+    /// </summary>
+    public virtual bool PreBananaDecay(BananaScript banana)
+    {
+        return true;
+    }
+
+    /// <summary>
+    ///     Called after the banana has decayed
+    ///     <br />
+    ///     Equivalent to a HarmonyPrefix on GameManagerScript.Start
+    /// </summary>
+    public virtual void PostBananaDecay(BananaScript banana)
+    {
+    }
+
+    /// <summary>
+    ///     Called after a bloon has spawned
+    ///     <br />
+    ///     Equivalent to a HarmonyPostfix on Enemy.Start
+    /// </summary>
+    public virtual void PostBloonSpawn(Enemy bloon)
+    {
+    }
+
+    /// <summary>
+    ///     Called before a bloon has spawned
+    ///     <br />
+    ///     Equivalent to a HarmonyPrefix on Enemy.Start
+    /// </summary>
+    public virtual bool PreBloonSpawn(ref Enemy bloon)
+    {
+        return true;
+    }
+
+    /// <summary>
+    ///     Called after the player is given health.
+    ///     <br />
+    ///     Equivalent to a HarmonyPostfix on Enemy.Start
+    /// </summary>
+    public virtual void PostHealthLoaded(PlayerHealth health)
+    {
+    }
+
+    /// <summary>
+    ///     Called before the player is given health.
+    ///     <br />
+    ///     Equivalent to a HarmonyPrefix on Enemy.Start
+    /// </summary>
+    public virtual bool PreHealthLoaded(PlayerHealth health)
+    {
+        return true;
+    }
+
+    /// <summary>
+    ///     Called after player sells weapons.
+    ///     <br />
+    ///     Equivalent to a HarmonyPostfix on Currency.CashBack
+    /// </summary>
+    public virtual void PostSell(Currency currency)
+    {
+    }
+
+    /// <summary>
+    ///     Called before player sells weapons.
+    ///     <br />
+    ///     Equivalent to a HarmonyPrefix on Currency.CashBack
+    /// </summary>
+    public virtual bool PreSell(Currency currency)
+    {
+        return true;
+    }
+
+    /// <summary>
+    ///     Called after player attacks.
+    ///     <br />
+    ///     Equivalent to a HarmonyPostfix on Weapon.AttackAnim
+    /// </summary>
+    public virtual void PostAttackAnim(Weapon weapon)
+    {
+    }
+
+    /// <summary>
+    ///     Called before player attacks.
+    ///     <br />
+    ///     Equivalent to a HarmonyPrefix on Weapon.AttackAnim
+    /// </summary>
+    public virtual bool PreAttackAnim(Weapon weapon)
+    {
+        return true;
+    }
+
+    /// <summary>
+    ///     Called after the player's weapon gets switched.
+    ///     <br />
+    ///     Equivalent to a HarmonyPostfix on EquipmentScript.ChangeWeapon
+    /// </summary>
+    public virtual void PostWeaponSwap(EquipmentScript equipment, string weaponName)
+    {
+    }
+
+    /// <summary>
+    ///     Called before the player's weapon gets switched.
+    ///     <br />
+    ///     Equivalent to a HarmonyPrefix on EquipmentScript.ChangeWeapon
+    /// </summary>
+    public virtual bool PreWeaponSwap(EquipmentScript equipment, ref string weaponName)
+    {
+        return true;
+    }
+
+    /// <summary>
+    ///     Called after the player moves.
+    ///     <br />
+    ///     Equivalent to a HarmonyPostfix on EquipmentScript.ChangeWeapon
+    /// </summary>
+    public virtual void PostPlayerMovement(FirstPersonController controller, float speed)
+    {
+    }
+
+    /// <summary>
+    ///     Called before the player moves.
+    ///     <br />
+    ///     Equivalent to a HarmonyPrefix on EquipmentScript.ChangeWeapon
+    /// </summary>
+    public virtual bool PrePlayerMovement(FirstPersonController controller, ref float speed)
     {
         return true;
     }
@@ -226,12 +445,22 @@ public abstract class AvHMod : MelonMod
     }
 
     /// <summary>
-    ///     Called after a wavespawner is initialized
+    ///     Called after a wave spawner is initialized
     ///     <br />
     ///     Equivalent to a HarmonyPostFix on WaveSpawner.Start
     /// </summary>
-    public virtual void OnWaveSpawnerInit(WaveSpawner spawner)
+    public virtual void PostWaveSpawnerInit(WaveSpawner spawner)
     {
+    }
+
+    /// <summary>
+    ///     Called before a wave spawner is initialized
+    ///     <br />
+    ///     Equivalent to a HarmonyPostFix on WaveSpawner.Start
+    /// </summary>
+    public virtual bool PreWaveSpawnerInit(WaveSpawner spawner)
+    {
+        return true;
     }
 
     /// <summary>
@@ -249,6 +478,25 @@ public abstract class AvHMod : MelonMod
     ///     Equivalent to a HarmonyPostFix on WaveSpawner.SpawnWave
     /// </summary>
     public virtual void OnWaveStarted(WaveSpawner spawner, WaveSpawner.Wave wave)
+    {
+    }
+
+    /// <summary>
+    ///     Called before every update
+    ///     <br />
+    ///     Equivalent to a HarmonyPostFix on WaveSpawner.Update
+    /// </summary>
+    public virtual bool PreWaveUpdate(WaveSpawner spawner)
+    {
+        return true;
+    }
+
+    /// <summary>
+    ///     Called after every update
+    ///     <br />
+    ///     Equivalent to a HarmonyPostFix on WaveSpawner.Update
+    /// </summary>
+    public virtual void PostWaveUpdate(WaveSpawner spawner)
     {
     }
 
