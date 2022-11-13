@@ -186,6 +186,82 @@ public abstract class AvHMod : MelonMod
         return true;
     }
 
+    /// <summary>
+    ///     Called before the game starts and the player is given a balance.
+    ///     <br />
+    ///     Equivalent to a HarmonyPrefix on Currency.Start
+    /// </summary>
+    public virtual void PreCashLoaded(Currency currency)
+    {
+        return true;
+    }
+
+    /// <summary>
+    ///     Called after the game starts and the player is given a balance.
+    ///     <br />
+    ///     Equivalent to a HarmonyPostFix on Currency.Start
+    /// </summary>
+    public virtual void PostCashLoaded(Currency currency)
+    {
+    }
+
+    /// <summary>
+    ///     Called before a banana is picked up.
+    ///     <br />
+    ///     Equivalent to a HarmonyPrefix on BananaScript.OnTriggerEnter
+    /// </summary>
+    public virtual void PreBananaPickUp(ref Collider other)
+    {
+        return true;
+    }
+
+    /// <summary>
+    ///     Called after a banana is picked up.
+    ///     <br />
+    ///     Equivalent to a HarmonyPostFix on BananaScript.OnTriggerEnter
+    /// </summary>
+    public virtual void PostBananaPickUp(ref Collider other)
+    {
+    }
+
+    /// <summary>
+    ///     Called before the player is removed health.
+    ///     <br />
+    ///     Equivalent to a HarmonyPrefix on PlayerHealth.UpdateHealth
+    /// </summary>
+    public virtual void PreHealthAdded(PlayerHealth health, int amount)
+    {
+        return true;
+    }
+
+    /// <summary>
+    ///     Called after the player is removed health.
+    ///     <br />
+    ///     Equivalent to a HarmonyPrefix on PlayerHealth.UpdateHealth
+    /// </summary>
+    public virtual void PostHealthAdded(PlayerHealth health, int amount)
+    {
+    }
+
+    /// <summary>
+    ///     Called before the game manager is initialized
+    ///     <br />
+    ///     Equivalent to a HarmonyPrefix on GameManagerScript.Start
+    /// </summary>
+    public virtual void PreGameManagerInit(GameManagerScript manager)
+    {
+        return true;
+    }
+
+    /// <summary>
+    ///     Called after the game manager is initialized
+    ///     <br />
+    ///     Equivalent to a HarmonyPrefix on GameManagerScript.Start
+    /// </summary>
+    public virtual void PostGameManagerInit(PlayerHealth health, int amount)
+    {
+    }
+
     /// <inheritdoc cref="OnEarlyInitializeMelon" />
     public virtual void OnEarlyInitialize()
     {
@@ -208,12 +284,22 @@ public abstract class AvHMod : MelonMod
     }
 
     /// <summary>
-    ///     Called after a wavespawner is initialized
+    ///     Called after a wave spawner is initialized
     ///     <br />
     ///     Equivalent to a HarmonyPostFix on WaveSpawner.Start
     /// </summary>
-    public virtual void OnWaveSpawnerInit(WaveSpawner spawner)
+    public virtual void PostWaveSpawnerInit(WaveSpawner spawner)
     {
+    }
+
+    /// <summary>
+    ///     Called before a wave spawner is initialized
+    ///     <br />
+    ///     Equivalent to a HarmonyPostFix on WaveSpawner.Start
+    /// </summary>
+    public virtual void PreWaveSpawnerInit(WaveSpawner spawner)
+    {
+        return true;
     }
 
     /// <summary>
@@ -231,6 +317,25 @@ public abstract class AvHMod : MelonMod
     ///     Equivalent to a HarmonyPostFix on WaveSpawner.SpawnWave
     /// </summary>
     public virtual void OnWaveStarted(WaveSpawner spawner, WaveSpawner.Wave wave)
+    {
+    }
+
+    /// <summary>
+    ///     Called before every update
+    ///     <br />
+    ///     Equivalent to a HarmonyPostFix on WaveSpawner.Update
+    /// </summary>
+    public virtual void PreWaveUpdate(WaveSpawner spawner)
+    {
+        return true;
+    }
+
+    /// <summary>
+    ///     Called after every update
+    ///     <br />
+    ///     Equivalent to a HarmonyPostFix on WaveSpawner.Update
+    /// </summary>
+    public virtual void PostWaveUpdate(WaveSpawner spawner)
     {
     }
 
