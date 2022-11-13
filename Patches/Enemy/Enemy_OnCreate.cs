@@ -2,11 +2,11 @@
 
 using Enemy = global::Enemy;
 
-[HarmonyPatch(typeof(Enemy), nameof(Enemy.Start))]
-internal static class Enemy_Start
+[HarmonyPatch(typeof(Enemy), nameof(Enemy.OnCreate))]
+internal static class Enemy_OnCreate
 {
     [HarmonyPrefix]
-    internal static bool Prefix(ref Enemy __instance)
+    internal static bool Prefix(Enemy __instance)
     {
         var result = true;
         Helper.PerformHook(mod => result &= mod.PreBloonLoaded(ref __instance));
@@ -14,8 +14,8 @@ internal static class Enemy_Start
     }
 
     [HarmonyPostfix]
-    internal static void Postfix(ref Enemy __instance)
+    internal static void Postfix(Enemy __instance)
     {
-        Helper.PerformHook(mod => mod.PostBloonLoaded(ref __instance));
+        Helper.PerformHook(mod => mod.PostBloonLoaded(__instance));
     }
 }

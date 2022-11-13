@@ -6,16 +6,16 @@ using Enemy = global::Enemy;
 internal static class Enemy_Stun
 {
     [HarmonyPrefix]
-    internal static bool Prefix(ref Enemy __instance)
+    internal static bool Prefix(Enemy __instance)
     {
-        result = true;
-        Helper.PerformHook(mod => result &= mod.PreBloonStunned(ref __instance));
+        var result = true;
+        Helper.PerformHook(mod => result &= mod.PreBloonStunned(__instance));
         return result;
     }
 
     [HarmonyPostfix]
-    internal static void Postfix(ref Enemy __instance)
+    internal static void Postfix(Enemy __instance)
     {
-        Helper.PerformHook(mod => mod.PostBloonStunned(ref __instance));
+        Helper.PerformHook(mod => mod.PostBloonStunned(__instance));
     }
 }

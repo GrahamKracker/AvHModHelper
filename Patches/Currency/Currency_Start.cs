@@ -6,16 +6,16 @@ using Currency = global::Currency;
 internal static class Currency_Start
 {
     [HarmonyPrefix]
-    internal static bool Prefix(ref Currency __instance)
+    internal static bool Prefix(Currency __instance)
     {
         var result = true;
-        Helper.PerformHook(mod => result &= mod.PreCashLoaded(ref __instance));
+        Helper.PerformHook(mod => result &= mod.PreCashLoaded(__instance));
         return result;
     }
 
     [HarmonyPostfix]
-    internal static void Postfix(ref Currency __instance)
+    internal static void Postfix(Currency __instance)
     {
-        Helper.PerformHook(mod => mod.PostCashLoaded(ref __instance));
+        Helper.PerformHook(mod => mod.PostCashLoaded(__instance));
     }
 }

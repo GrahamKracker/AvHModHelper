@@ -18,7 +18,7 @@ internal static class BananaScript_OnTriggerEnter
     }
 
     [HarmonyPostfix]
-    internal static void Postfix(ref Collider other)
+    internal static void Postfix(Collider other)
     {
         var collider = other;
 

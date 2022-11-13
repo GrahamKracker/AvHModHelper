@@ -230,7 +230,7 @@ public abstract class AvHMod : MelonMod
     ///     <br />
     ///     Equivalent to a HarmonyPrefix on PlayerHealth.UpdateHealth
     /// </summary>
-    public virtual bool PreHealthAdded(PlayerHealth health, int amount)
+    public virtual bool PreHealthAdded(PlayerHealth health, ref int amount)
     {
         return true;
     }
@@ -259,7 +259,7 @@ public abstract class AvHMod : MelonMod
     ///     <br />
     ///     Equivalent to a HarmonyPrefix on GameManagerScript.Start
     /// </summary>
-    public virtual void PostGameManagerInit(PlayerHealth health, int amount)
+    public virtual void PostGameManagerInit(GameManagerScript manager)
     {
     }
 
