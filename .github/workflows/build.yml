@@ -39,7 +39,7 @@ jobs:
         uses: actions/checkout@master
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          repository: GrahamKracker/AvHModHelper
+          repository: GrahamKracker/AvH-CI-Dependencies
           path: ${{ env.AvH }}/MelonLoader/Managed
           
           
