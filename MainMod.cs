@@ -16,17 +16,13 @@ using UnityStandardAssets.Characters.FirstPerson;
 
 internal class MainMod : AvHMod
 {
-    private MelonPreferences_Category ourFirstCategory;
-    private MelonPreferences_Entry<string> ourFirstEntry;
-
-
     public override void OnApplicationStart()
     {
-        MelonLogger.Msg("AvHModHelper Loaded");
-        ourFirstCategory = MelonPreferences.CreateCategory("AvHModHelper");
-        ourFirstEntry = ourFirstCategory.CreateEntry<string>("TargetsFilePath", "");
+        var ourFirstCategory = MelonPreferences.CreateCategory("AvHModHelper");
+        var ourFirstEntry = ourFirstCategory.CreateEntry<string>("TargetsFilePath", "");
         MelonPreferences.Save();
-        TargetsMaker.CreateTargetsFile(ourFirstEntry.Value);
+        TargetsMaker.CreateTargetsFile(ourFirstEntry.Value);   
+        MelonLogger.Msg("AvHModHelper Loaded");
     }
 
     public override void OnUpdate()
@@ -45,15 +41,13 @@ internal class MainMod : AvHMod
             for (int i = 0; i < __instance.transform.childCount; i++)
             {
                 if (__instance.transform.GetChild(i).name != "FirstPersonCharacter") continue;
-
-                var person = __instance.transform.GetChild(i);
                 var shadowMonkey = uObject.Instantiate(root.Find(x => x.name == "Shop").transform.Find("Monkey Follower"), __instance.transform);
                 var monkeybasic = shadowMonkey.Find("Monkey Basic");
                 var monkeybase = monkeybasic.Find("Monke Base");
                 monkeybase.GetComponent<SkinnedMeshRenderer>().enabled = false;
                 uObject.Destroy(shadowMonkey.gameObject.GetComponent<Animator>());
                 uObject.Destroy(shadowMonkey.gameObject.GetComponent<BlinkingScript>());
-                
+
                 shadowMonkey.gameObject.AddComponent<ShadowMonkeyMono>();
 
                 monkeybase.GetComponent<SkinnedMeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;

@@ -6,11 +6,13 @@ using EquipmentScript = global::EquipmentScript;
 internal static class EquipmentScript_ChangeWeapon
 {
     [HarmonyPrefix]
-    internal static bool Prefix(EquipmentScript __instance, ref string weaponID)
+    internal static bool Prefix(ref EquipmentScript __instance, ref string weaponID)
     {
         var result = true;
         var unrefweaponid = weaponID;
-        Helper.PerformHook(mod => result &= mod.PreWeaponSwap(__instance, ref unrefweaponid));
+        var unref = __instance;
+        Helper.PerformHook(mod => result &= mod.PreWeaponSwap(ref unref, ref unrefweaponid));
+        __instance = unref;
         weaponID = unrefweaponid;
         return result;
     }

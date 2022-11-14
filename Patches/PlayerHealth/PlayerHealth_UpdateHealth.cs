@@ -6,12 +6,14 @@ using PlayerHealth = global::PlayerHealth;
 internal static class PlayerHealth_UpdateHealth
 {
     [HarmonyPrefix]
-    internal static bool Prefix(PlayerHealth __instance, ref int amount)
+    internal static bool Prefix(ref PlayerHealth __instance, ref int amount)
     {
         var result = true;
         var unrefamount = amount;
-        Helper.PerformHook(mod => result &= mod.PreHealthAdded(__instance, ref unrefamount));
+        var unref = __instance;
+        Helper.PerformHook(mod => result &= mod.PreHealthAdded(ref unref, ref unrefamount));
         amount = unrefamount;
+        __instance = unref;
         return result;
     }
 

@@ -6,10 +6,12 @@ using Enemy = global::Enemy;
 internal static class Enemy_OnCreate
 {
     [HarmonyPrefix]
-    internal static bool Prefix(Enemy __instance)
+    internal static bool Prefix(ref Enemy __instance)
     {
         var result = true;
-        Helper.PerformHook(mod => result &= mod.PreBloonLoaded(ref __instance));
+        var unref = __instance;
+        Helper.PerformHook(mod => result &= mod.PreBloonLoaded(ref unref));
+        __instance = unref;
         return result;
     }
 

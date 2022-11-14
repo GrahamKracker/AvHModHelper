@@ -20,9 +20,8 @@ internal static class BananaScript_OnTriggerEnter
     [HarmonyPostfix]
     internal static void Postfix(Collider other)
     {
-        var collider = other;
 
-        Helper.PerformHook(mod => mod.PostBananaPickUp(ref collider));
-        other = collider;
+        Helper.PerformHook(mod => mod.PostBananaPickUp(other));
+        
     }
 }

@@ -3,7 +3,7 @@
 using Enemy = global::Enemy;
 
 [HarmonyPatch(typeof(Enemy), "OnTriggerEnter")]
-internal class EnemyOnTriggerEnter_Patch
+internal static class Enemy_OnTriggerEnter
 {
     [HarmonyPrefix]
     internal static bool Prefix(ref Enemy __instance, ref Collider other)
@@ -21,10 +21,6 @@ internal class EnemyOnTriggerEnter_Patch
     [HarmonyPostfix]
     internal static void Postfix(Enemy __instance, Collider other)
     {
-        var enemy = __instance;
-        var collider = other;
-        Helper.PerformHook(mod => mod.PostBloonCollides(ref enemy, ref collider));
-        __instance = enemy;
-        other = collider;
+        Helper.PerformHook(mod => mod.PostBloonCollides(__instance, other));
     }
 }

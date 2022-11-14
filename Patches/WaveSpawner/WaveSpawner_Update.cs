@@ -6,10 +6,12 @@ using WaveSpawner = global::WaveSpawner;
 internal static class WaveSpawner_Update
 {
     [HarmonyPrefix]
-    internal static bool Prefix(WaveSpawner __instance)
+    internal static bool Prefix(ref WaveSpawner __instance)
     {
         var result = true;
-        Helper.PerformHook(mod => result &= mod.PreWaveUpdate(__instance));
+        var unref = __instance;
+        Helper.PerformHook(mod => result &= mod.PreWaveUpdate(ref unref));
+        __instance = unref;
         return result;
     }
 

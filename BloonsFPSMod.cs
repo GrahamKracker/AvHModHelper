@@ -73,7 +73,7 @@ public abstract class AvHMod : MelonMod
     {
         if (sceneName != "MainMenu")
             OnMapLoaded(sceneName);
-        else if (sceneName == "MainMenu") OnMainMenuLoaded();
+        else if (sceneName == "MainMenu") OnMainMenuScene();
     }
 
     /// <summary>
@@ -103,7 +103,7 @@ public abstract class AvHMod : MelonMod
     }
     
     /// <summary>
-    ///     Called when a map is loaded
+    ///     Called before the player receives input, return false to stop the original method from running.
     ///     <br />
     ///     Equivalent to OnSceneWasInitialized, but only called when the scene is not the main menu
     /// </summary>
@@ -116,12 +116,12 @@ public abstract class AvHMod : MelonMod
     ///     <br />
     ///     Equivalent to a HarmonyPostFix on Enemy.OnTriggerEnter
     /// </summary>
-    public virtual void PostBloonCollides(ref Enemy bloon, ref Collider other)
+    public virtual void PostBloonCollides(Enemy bloon, Collider other)
     {
     }
 
     /// <summary>
-    ///     Called before player being in collision range of bloons / player not being hit yet.
+    ///     Called before player being in collision range of bloons / player not being hit yet, return false to stop the original method from running.
     ///     <br />
     ///     Equivalent to a HarmonyPreFix on Enemy.OnTriggerEnter
     /// </summary>
@@ -134,7 +134,7 @@ public abstract class AvHMod : MelonMod
     ///     <br />
     ///     Equivalent to OnSceneWasInitialized, if scene is the main menu.
     /// </summary>
-    public virtual void OnMainMenuLoaded()
+    public virtual void OnMainMenuScene()
     {
     }
 
@@ -148,11 +148,11 @@ public abstract class AvHMod : MelonMod
     }
 
     /// <summary>
-    ///     Called before a bloon is stunned
+    ///     Called before a bloon is stunned, return false to stop the original method from running.
     ///     <br />
     ///     Equivalent to a HarmonyPrefix on Enemy.Stun
     /// </summary>
-    public virtual bool PreBloonStunned(Enemy bloon)
+    public virtual bool PreBloonStunned(ref Enemy bloon)
     {
         return true;
     }
@@ -167,21 +167,21 @@ public abstract class AvHMod : MelonMod
     }
 
     /// <summary>
-    ///     Called before cash is added to the player's balance, return false to prevent the cash from being added
+    ///     Called before cash is added to the player's balance, return false to stop the original method from running
     ///     <br />
     ///     Equivalent to a HarmonyPrefix on Currency.UpdateCurrency
     /// </summary>
-    public virtual bool PreCashAdded(Currency currency, ref int amount, ref bool canDouble)
+    public virtual bool PreCashAdded(ref Currency currency, ref int amount, ref bool canDouble)
     {
         return true;
     }
 
     /// <summary>
-    ///     Called before a bloon is damaged, return false to prevent the damage
+    ///     Called before a bloon is damaged, return false to stop the original method from running
     ///     <br />
     ///     Equivalent to a HarmonyPrefix on Enemy.RecieveDamage
     /// </summary>
-    public virtual bool PreBloonDamaged(Enemy bloon, int dmg, string type, Projectile proj, bool damageOnSpawn, bool regrowthBlock)
+    public virtual bool PreBloonDamaged(ref Enemy bloon, ref int dmg, ref string type, ref Projectile proj, ref bool damageOnSpawn, ref bool regrowthBlock)
     {
         return true;
     }
@@ -205,7 +205,7 @@ public abstract class AvHMod : MelonMod
     }
 
     /// <summary>
-    ///     Called before a bloon is given properties.
+    ///     Called before a bloon is given properties, return false to stop the original method from running.
     ///     <br />
     ///     Equivalent to a HarmonyPrefix on Enemy.OnCreate
     /// </summary>
@@ -215,11 +215,11 @@ public abstract class AvHMod : MelonMod
     }
 
     /// <summary>
-    ///     Called before the game starts and the player is given a balance.
+    ///     Called before the game starts and the player is given a balance, return false to stop the original method from running.
     ///     <br />
     ///     Equivalent to a HarmonyPrefix on Currency.Start
     /// </summary>
-    public virtual bool PreCashLoaded(Currency currency)
+    public virtual bool PreCashLoaded(ref Currency currency)
     {
         return true;
     }
@@ -234,7 +234,7 @@ public abstract class AvHMod : MelonMod
     }
 
     /// <summary>
-    ///     Called before a banana is picked up.
+    ///     Called before a banana is picked up, return false to stop the original method from running.
     ///     <br />
     ///     Equivalent to a HarmonyPrefix on BananaScript.OnTriggerEnter
     /// </summary>
@@ -248,16 +248,16 @@ public abstract class AvHMod : MelonMod
     ///     <br />
     ///     Equivalent to a HarmonyPostFix on BananaScript.OnTriggerEnter
     /// </summary>
-    public virtual void PostBananaPickUp(ref Collider other)
+    public virtual void PostBananaPickUp(Collider collider)
     {
     }
 
     /// <summary>
-    ///     Called before the player is removed health.
+    ///     Called before the player is removed health, return false to stop the original method from running.
     ///     <br />
     ///     Equivalent to a HarmonyPrefix on PlayerHealth.UpdateHealth
     /// </summary>
-    public virtual bool PreHealthAdded(PlayerHealth health, ref int amount)
+    public virtual bool PreHealthAdded(ref PlayerHealth health, ref int amount)
     {
         return true;
     }
@@ -272,11 +272,11 @@ public abstract class AvHMod : MelonMod
     }
 
     /// <summary>
-    ///     Called before the game manager is initialized
+    ///     Called before the game manager is initialized, return false to stop the original method from running.
     ///     <br />
     ///     Equivalent to a HarmonyPrefix on GameManagerScript.Start
     /// </summary>
-    public virtual bool PreGameManagerInit(GameManagerScript manager)
+    public virtual bool PreGameManagerInit(ref GameManagerScript manager)
     {
         return true;
     }
@@ -291,11 +291,11 @@ public abstract class AvHMod : MelonMod
     }
 
     /// <summary>
-    ///     Called before the banana decays
+    ///     Called before the banana decays, return false to stop the original method from running.
     ///     <br />
     ///     Equivalent to a HarmonyPrefix on BananaScript.Decay
     /// </summary>
-    public virtual bool PreBananaDecay(BananaScript banana)
+    public virtual bool PreBananaDecay(ref BananaScript banana)
     {
         return true;
     }
@@ -319,7 +319,7 @@ public abstract class AvHMod : MelonMod
     }
 
     /// <summary>
-    ///     Called before a bloon has spawned
+    ///     Called before a bloon has spawned, return false to stop the original method from running.
     ///     <br />
     ///     Equivalent to a HarmonyPrefix on Enemy.Start
     /// </summary>
@@ -338,7 +338,7 @@ public abstract class AvHMod : MelonMod
     }
 
     /// <summary>
-    ///     Called before the player is given health.
+    ///     Called before the player is given health, return false to stop the original method from running.
     ///     <br />
     ///     Equivalent to a HarmonyPrefix on Enemy.Start
     /// </summary>
@@ -357,11 +357,11 @@ public abstract class AvHMod : MelonMod
     }
 
     /// <summary>
-    ///     Called before player sells weapons.
+    ///     Called before player sells weapons, return false to stop the original method from running.
     ///     <br />
     ///     Equivalent to a HarmonyPrefix on Currency.CashBack
     /// </summary>
-    public virtual bool PreSell(Currency currency)
+    public virtual bool PreSell(ref Currency currency)
     {
         return true;
     }
@@ -376,11 +376,11 @@ public abstract class AvHMod : MelonMod
     }
 
     /// <summary>
-    ///     Called before player attacks.
+    ///     Called before player attacks, return false to stop the original method from running.
     ///     <br />
     ///     Equivalent to a HarmonyPrefix on Weapon.AttackAnim
     /// </summary>
-    public virtual bool PreAttackAnim(Weapon weapon)
+    public virtual bool PreAttackAnim(ref Weapon weapon)
     {
         return true;
     }
@@ -395,17 +395,17 @@ public abstract class AvHMod : MelonMod
     }
 
     /// <summary>
-    ///     Called before the player's weapon gets switched.
+    ///     Called before the player's weapon gets switched, return false to stop the original method from running.
     ///     <br />
     ///     Equivalent to a HarmonyPrefix on EquipmentScript.ChangeWeapon
     /// </summary>
-    public virtual bool PreWeaponSwap(EquipmentScript equipment, ref string weaponName)
+    public virtual bool PreWeaponSwap(ref EquipmentScript equipment, ref string weaponName)
     {
         return true;
     }
 
     /// <summary>
-    ///     Called after the player moves.
+    ///     Called after the player moves, return false to stop the original method from running.
     ///     <br />
     ///     Equivalent to a HarmonyPostfix on EquipmentScript.ChangeWeapon
     /// </summary>
@@ -414,11 +414,11 @@ public abstract class AvHMod : MelonMod
     }
 
     /// <summary>
-    ///     Called before the player moves.
+    ///     Called before the player moves, return false to stop the original method from running.
     ///     <br />
     ///     Equivalent to a HarmonyPrefix on EquipmentScript.ChangeWeapon
     /// </summary>
-    public virtual bool PrePlayerMovement(FirstPersonController controller, ref float speed)
+    public virtual bool PrePlayerMovement(ref FirstPersonController controller, ref float speed)
     {
         return true;
     }
@@ -464,7 +464,7 @@ public abstract class AvHMod : MelonMod
     }
 
     /// <summary>
-    ///     Called when a bloon is spawned
+    ///     Called after a bloon is spawned
     ///     <br />
     ///     Equivalent to a HarmonyPostFix on WaveSpawner.SpawnEnemy
     /// </summary>
@@ -482,11 +482,11 @@ public abstract class AvHMod : MelonMod
     }
 
     /// <summary>
-    ///     Called before every update
+    ///     Called before every wavespawner update
     ///     <br />
     ///     Equivalent to a HarmonyPostFix on WaveSpawner.Update
     /// </summary>
-    public virtual bool PreWaveUpdate(WaveSpawner spawner)
+    public virtual bool PreWaveUpdate(ref WaveSpawner spawner)
     {
         return true;
     }

@@ -6,10 +6,12 @@ using Weapon = global::Weapon;
 internal static class Weapon_AttackAnim
 {
     [HarmonyPrefix]
-    internal static bool Prefix(Weapon __instance)
+    internal static bool Prefix(ref Weapon __instance)
     {
         var result = true;
-        Helper.PerformHook(mod => result &= mod.PreAttackAnim(__instance));
+        var unref = __instance;
+        Helper.PerformHook(mod => result &= mod.PreAttackAnim(ref unref));
+        __instance = unref;
         return result;
     }
 

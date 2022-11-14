@@ -6,12 +6,14 @@ using Currency = global::Currency;
 internal static class Currency_UpdateCurrency
 {
     [HarmonyPrefix]
-    internal static bool Prefix(Currency __instance, ref int amount, ref bool canDouble)
+    internal static bool Prefix(ref Currency __instance, ref int amount, ref bool canDouble)
     {
         var result = true;
         var unrefamount = amount;
         var unrefcanDouble = canDouble;
-        Helper.PerformHook(mod => result &= mod.PreCashAdded(__instance, ref unrefamount, ref unrefcanDouble));
+        var unref = __instance;
+        Helper.PerformHook(mod => result &= mod.PreCashAdded(ref unref, ref unrefamount, ref unrefcanDouble));
+        __instance = unref;
         amount = unrefamount;
         canDouble = unrefcanDouble;
         return result;

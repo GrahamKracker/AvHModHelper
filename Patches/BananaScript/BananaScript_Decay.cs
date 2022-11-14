@@ -6,10 +6,12 @@ using BananaScript = global::BananaScript;
 internal static class BananaScript_Decay
 {
     [HarmonyPrefix]
-    internal static bool Prefix(BananaScript __instance)
+    internal static bool Prefix(ref BananaScript __instance)
     {
         var result = true;
-        Helper.PerformHook(mod => result &= mod.PreBananaDecay(__instance));
+        var unref = __instance;
+        Helper.PerformHook(mod => result &= mod.PreBananaDecay(ref unref));
+        __instance = unref;
         return result;
     }
 

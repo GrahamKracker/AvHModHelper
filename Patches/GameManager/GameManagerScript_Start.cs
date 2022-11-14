@@ -6,10 +6,12 @@ using GameManagerScript = global::GameManagerScript;
 internal static class GameManagerScript_Start
 {
     [HarmonyPrefix]
-    internal static bool Prefix(GameManagerScript __instance)
+    internal static bool Prefix(ref GameManagerScript __instance)
     {
         var result = true;
-        Helper.PerformHook(mod => result &= mod.PreGameManagerInit(__instance));
+        var unref = __instance;
+        Helper.PerformHook(mod => result &= mod.PreGameManagerInit(ref unref));
+        __instance = unref;
         return result;
     }
 
