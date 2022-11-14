@@ -30,7 +30,10 @@
     <ItemGroup>
       <Content Include=".github\workflows\build.yml" />
     </ItemGroup>
-    <Import Project="..\AvH.targets" />
+     
+    <Import Condition="Exists('..\..\AvH.targets')" Project="..\..\AvH.targets" />
+    <Import Condition="!Exists('..\..\AvH.targets')" Project="AvH.targets" />
+     
     <Target Name="MoveDllToFolder" AfterTargets="Build" Condition="Exists('$(TargetDir)$(TargetName).dll')">
         <Message Text="Copying $(ProjectName).dll to $(MSBuildThisFileDirectory) Folder..." Importance="High" />
         <Copy SourceFiles="$(TargetDir)$(TargetName).dll" DestinationFiles="$(MSBuildThisFileDirectory)\$(ProjectName).dll" />
