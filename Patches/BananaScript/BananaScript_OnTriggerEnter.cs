@@ -25,7 +25,7 @@ internal static class BananaScript_OnTriggerEnter
     {
         if (other.tag == "Player")
         {
-            Helper.PerformHook(mod => mod.PostBananaPickUp(ref other));
+            Helper.PerformHook(mod => mod.PostBananaPickUp(other));
         }
     }
 }
