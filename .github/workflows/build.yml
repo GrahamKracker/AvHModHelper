@@ -6,23 +6,20 @@ on:
     tags:
       - '*'
 
-env:
-  PROJECT_NAME: AvHModHelper
-  MOD_HELPER_BRANCH: master
-  
-  MOD_HELPER_NAME: AvHModHelper
-  BLOONSTD6: ./AvH
+env:  
+ PROJECT_NAME: AvHModHelper
+ CSPROJ: ".AvHModHelper.csproj"
+ AvH: ./AvH
 
 jobs:
   build:
     
-    runs-on: ubuntu-latest
+    runs-on: windows-latest
 
     steps:
       - name: Clone Repo
         uses: actions/checkout@master
-        with:
-          path: ${{ env.PROJECT_NAME }}
+        
 
 
       - name: Download Latest MelonLoader
@@ -38,7 +35,7 @@ jobs:
       - name: Extract Latest MelonLoader
         if: env.MELONLOADER_BRANCH == ''
         shell: bash
-        run: unzip MelonLoader.x64.zip -d ${{ env.BLOONSTD6 }}
+        run: unzip MelonLoader.x64.zip -d ${{ env.AvH }}
 
 
       - name: Download Specific MelonLoader
@@ -50,7 +47,7 @@ jobs:
           branch: ${{ env.MELONLOADER_BRANCH }}
           name: MelonLoader.x64.CI.Release
           repo: LavaGang/MelonLoader
-          path: ${{ env.BLOONSTD6 }}
+          path: ${{ env.AvH }}
 
 
       - name: Clone Dependencies Repo
@@ -59,41 +56,8 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           repository: GrahamKracker/AvHModHelper
           ref: main
-          path: ${{ env.BLOONSTD6 }}/MelonLoader/Managed
-
-
-      - name: Download Latest Mod Helper
-        uses: dsaltares/fetch-gh-release-asset@master
-        if: env.MOD_HELPER_BRANCH == ''
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          repository: GrahamKracker/AvHModHelper
-          fileName: ${{ env.MOD_HELPER_NAME }}.dll
-          out-file-path: ${{ env.BLOONSTD6 }}/Mods/
-          tarBall: false
-          zipBall: false
-          latest: true
-
-
-      - name: Download Specific Mod Helper
-        uses: dawidd6/action-download-artifact@v2
-        if: env.MOD_HELPER_BRANCH != ''
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          workflow: build.yml
-          name: ${{ env.MOD_HELPER_NAME }}.dll
-          branch: ${{ env.MOD_HELPER_BRANCH }}
-          repo: GrahamKracker/AvHModHelper
-          path: ${{ env.BLOONSTD6 }}/Mods/
-
-
-      - name: Download AvH.targets
-        shell: bash
-        run: |
-          if [ "$RUNNER_OS" == "Windows" ]; then
-            choco install -y wget
-          fi
-          wget https://raw.githubusercontent.com/GrahamKracker/AvHModHelper/${{ env.MOD_HELPER_BRANCH }}/AvH.targets
+          path: ${{ env.AvH }}/MelonLoader/Managed
+          
           
       - name: Setup .NET
         uses: actions/setup-dotnet@v2
@@ -102,20 +66,20 @@ jobs:
           
           
       - name: Build
-        run: dotnet build -c Release -p:BloonsTD6="../${{ env.BLOONSTD6 }}" "${{ env.PROJECT_NAME }}/${{ env.PROJECT_NAME }}.csproj"
+        run: dotnet build -c Release -p:AvH="../${{ env.AvH }}" "${{ env.PROJECT_NAME }}/${{ env.PROJECT_NAME }}.csproj"
 
 
       - name: Upload Mod DLL
         uses: actions/upload-artifact@v2.2.4
         with:
           name: ${{ env.PROJECT_NAME }}.dll
-          path: ${{ env.BLOONSTD6 }}/Mods/${{ env.PROJECT_NAME }}.dll
+          path: ${{ env.AvH }}/Mods/${{ env.PROJECT_NAME }}.dll
           
           
       - name: Release
         uses: softprops/action-gh-release@v1
         if: startsWith(github.ref, 'refs/tags/')
         with: 
-          files: ${{ env.BLOONSTD6 }}/Mods/${{ env.PROJECT_NAME }}.dll
+          files: ${{ env.AvH }}/Mods/${{ env.PROJECT_NAME }}.dll
           body_path: ${{ env.PROJECT_NAME }}/LATEST.md
           fail_on_unmatched_files: true
