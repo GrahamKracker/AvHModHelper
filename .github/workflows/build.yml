@@ -8,7 +8,6 @@ on:
 
 env:  
  PROJECT_NAME: AvHModHelper
- CSPROJ: ".AvHModHelper.csproj"
  AvH: ./AvH
 
 jobs:
@@ -52,7 +51,7 @@ jobs:
           
           
       - name: Build
-        run: dotnet build -c Release -p:AvH="../${{ env.AvH }}" "${{ env.PROJECT_NAME }}/${{ env.PROJECT_NAME }}.csproj"
+        run: dotnet build -c Release -p:AvH="../${{ env.AvH }}" "${{ env.PROJECT_NAME }}.csproj"
 
 
       - name: Upload Mod DLL
