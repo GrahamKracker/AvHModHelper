@@ -248,7 +248,7 @@ public abstract class AvHMod : MelonMod
     ///     <br />
     ///     Equivalent to a HarmonyPostFix on BananaScript.OnTriggerEnter
     /// </summary>
-    public virtual void PostBananaPickUp(Collider collider)
+    public virtual void PostBananaPickUp(ref Collider collider)
     {
     }
 

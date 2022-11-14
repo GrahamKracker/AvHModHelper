@@ -9,19 +9,23 @@ internal static class BananaScript_OnTriggerEnter
     internal static bool Prefix(ref Collider other)
     {
         var collider = other;
-
         var result = true;
-        Helper.PerformHook(mod => result &= mod.PreBananaPickUp(ref collider));
+        if (other.tag == "Player")
+        {
+            Helper.PerformHook(mod => result &= mod.PreBananaPickUp(ref collider));
+        }
         other = collider;
 
         return result;
+
     }
 
     [HarmonyPostfix]
     internal static void Postfix(Collider other)
     {
-
-        Helper.PerformHook(mod => mod.PostBananaPickUp(other));
-        
+        if (other.tag == "Player")
+        {
+            Helper.PerformHook(mod => mod.PostBananaPickUp(ref other));
+        }
     }
 }

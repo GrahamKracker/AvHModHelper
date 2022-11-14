@@ -2,15 +2,15 @@
 
 using Currency = global::Currency;
 
-[HarmonyPatch(typeof(Currency), "Start")]
-internal static class Currency_Cashback
+[HarmonyPatch(typeof(Currency), nameof(Currency.CashBack))]
+internal static class Currency_CashBack
 {
     [HarmonyPrefix]
     internal static bool Prefix(ref Currency __instance)
     {
         var result = true;
         var unref = __instance;
-        Helper.PerformHook(mod => result &= mod.PreCashLoaded(ref unref));
+        Helper.PerformHook(mod => result &= mod.PreSell(ref unref));
         __instance = unref;
         return result;
     }
@@ -18,6 +18,6 @@ internal static class Currency_Cashback
     [HarmonyPostfix]
     internal static void Postfix(Currency __instance)
     {
-        Helper.PerformHook(mod => mod.PostCashLoaded(__instance));
+        Helper.PerformHook(mod => mod.PostSell(__instance));
     }
 }
