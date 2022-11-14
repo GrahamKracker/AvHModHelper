@@ -23,7 +23,6 @@ jobs:
 
 
       - name: Download Latest MelonLoader
-        if: env.MELONLOADER_BRANCH == ''
         uses: robinraju/release-downloader@v1.4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
@@ -32,30 +31,17 @@ jobs:
           tarBall: false
           zipBall: false
           latest: true
+          
       - name: Extract Latest MelonLoader
         if: env.MELONLOADER_BRANCH == ''
         shell: bash
         run: unzip MelonLoader.x64.zip -d ${{ env.AvH }}
-
-
-      - name: Download Specific MelonLoader
-        if: env.MELONLOADER_BRANCH != ''
-        uses: dawidd6/action-download-artifact@v2
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          workflow: build.yml
-          branch: ${{ env.MELONLOADER_BRANCH }}
-          name: MelonLoader.x64.CI.Release
-          repo: LavaGang/MelonLoader
-          path: ${{ env.AvH }}
-
 
       - name: Clone Dependencies Repo
         uses: actions/checkout@master
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           repository: GrahamKracker/AvHModHelper
-          ref: main
           path: ${{ env.AvH }}/MelonLoader/Managed
           
           
