@@ -52,7 +52,7 @@ jobs:
           
           
       - name: Build
-        run: dotnet build -c Release "${{ env.CSPROJ }}" -p:BloonsTD6="../AvH"
+        run: dotnet build -c Release "${{ env.CSPROJ }}" -p:AvH="../AvH"
 
 
       - name: Upload Mod DLL
