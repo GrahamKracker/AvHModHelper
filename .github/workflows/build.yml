@@ -9,12 +9,11 @@ on:
 env:  
  PROJECT_NAME: AvHModHelper
  AvH: ./AvH
- CSPROJ: AvHModHelper.csproj
 
 jobs:
   build:
     
-    runs-on: windows-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Clone Repo
@@ -52,7 +51,7 @@ jobs:
           
           
       - name: Build
-        run: dotnet build -c Release "${{ env.CSPROJ }}" "-p:AvH=../AvH"
+        run: dotnet build -c Release -p:AvH="../${{ env.AvH }}" "${{ env.PROJECT_NAME }}/${{ env.PROJECT_NAME }}.csproj
 
 
       - name: Upload Mod DLL
