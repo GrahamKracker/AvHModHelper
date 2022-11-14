@@ -49,7 +49,6 @@ internal class MainMod : AvHMod
                 uObject.Destroy(shadowMonkey.gameObject.GetComponent<BlinkingScript>());
 
                 shadowMonkey.gameObject.AddComponent<ShadowMonkeyMono>();
-
                 monkeybase.GetComponent<SkinnedMeshRenderer>().shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.ShadowsOnly;
                 shadowMonkey.name = "Player Shadow";
                 shadowMonkey.localPosition = new Vector3(0f, -0.9f, 0f);

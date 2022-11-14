@@ -25,7 +25,7 @@ internal static class TargetsMaker
             using var fs = new StreamWriter(targets);
             using var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream("AvHModHelper.AvH.targets");
             using var reader = new StreamReader(stream!);
-            var text = reader.ReadToEnd().Replace(@"YourAvHFolder", MelonUtils.GameDirectory);
+            var text = reader.ReadToEnd().Replace(@"YourAvHFolderWITHOUTTRAILINGSLASH", MelonUtils.GameDirectory);
             fs.Write(text);
         }
 }
