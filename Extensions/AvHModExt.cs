@@ -1,7 +1,7 @@
-﻿namespace AvHModHelper.Extensions;
-
-using System.IO;
+﻿using System.IO;
 using System.Reflection;
+
+namespace AvHModHelper.Extensions;
 
 /// <summary>
 ///     Extensions for AvHMods

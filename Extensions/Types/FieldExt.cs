@@ -1,8 +1,8 @@
-﻿namespace AvHModHelper.Extensions.Types;
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
+
+namespace AvHModHelper.Extensions.Types;
 
 public static class FieldExtensions
 {

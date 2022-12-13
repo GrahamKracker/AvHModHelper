@@ -1,9 +1,9 @@
-﻿namespace AvHModHelper;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
-using Extensions;
+using AvHModHelper.Extensions;
 using UnityStandardAssets.Characters.FirstPerson;
+
+namespace AvHModHelper;
 
 public abstract class AvHMod : MelonMod
 {
@@ -181,7 +181,7 @@ public abstract class AvHMod : MelonMod
     ///     <br />
     ///     Equivalent to a HarmonyPrefix on Enemy.RecieveDamage
     /// </summary>
-    public virtual bool PreBloonDamaged(ref Enemy bloon, ref int dmg, ref string type, ref Projectile proj, ref bool damageOnSpawn, ref bool regrowthBlock)
+    public virtual bool PreBloonDamaged(ref Enemy bloon, ref int dmg, ref string type, ref Projectile proj, ref bool regrowthBlock)
     {
         return true;
     }
@@ -191,7 +191,7 @@ public abstract class AvHMod : MelonMod
     ///     <br />
     ///     Equivalent to a HarmonyPostFix on Enemy.RecieveDamage
     /// </summary>
-    public virtual void PostBloonDamaged(Enemy bloon, int dmg, string type, Projectile proj, bool damageOnSpawn, bool regrowthBlock)
+    public virtual void PostBloonDamaged(Enemy bloon, int dmg, string type, Projectile proj, bool regrowthBlock)
     {
     }
 

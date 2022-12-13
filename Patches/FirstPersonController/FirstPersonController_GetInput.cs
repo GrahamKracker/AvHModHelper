@@ -1,13 +1,10 @@
 ﻿namespace AvHModHelper.Patches.FirstPersonController;
 
-
-using UnityStandardAssets.Characters.FirstPerson;
-
-[HarmonyPatch(typeof(FirstPersonController), "GetInput")]
+[HarmonyPatch(typeof(UnityStandardAssets.Characters.FirstPerson.FirstPersonController), "GetInput")]
 internal static class FirstPersonController_GetInput
 {
     [HarmonyPrefix]
-    internal static bool Prefix(ref FirstPersonController __instance, ref float speed)
+    internal static bool Prefix(ref UnityStandardAssets.Characters.FirstPerson.FirstPersonController __instance, ref float speed)
     {
         var player = __instance;
         var rate = speed;
@@ -18,7 +15,7 @@ internal static class FirstPersonController_GetInput
         return result;
     }
     [HarmonyPostfix]
-    internal static void Postfix(FirstPersonController __instance, float speed)
+    internal static void Postfix(UnityStandardAssets.Characters.FirstPerson.FirstPersonController __instance, float speed)
     {
         Helper.PerformHook(mod => mod.PostInputReceived(__instance, speed));
     }

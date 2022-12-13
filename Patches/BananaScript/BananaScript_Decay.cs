@@ -1,12 +1,10 @@
 ﻿namespace AvHModHelper.Patches.BananaScript;
 
-using BananaScript = global::BananaScript;
-
-[HarmonyPatch(typeof(BananaScript), "Decay")]
+[HarmonyPatch(typeof(global::BananaScript), "Decay")]
 internal static class BananaScript_Decay
 {
     [HarmonyPrefix]
-    internal static bool Prefix(ref BananaScript __instance)
+    internal static bool Prefix(ref global::BananaScript __instance)
     {
         var result = true;
         var unref = __instance;
@@ -16,7 +14,7 @@ internal static class BananaScript_Decay
     }
 
     [HarmonyPostfix]
-    internal static void Postfix(BananaScript __instance)
+    internal static void Postfix(global::BananaScript __instance)
     {
         Helper.PerformHook(mod => mod.PostBananaDecay(__instance));
     }

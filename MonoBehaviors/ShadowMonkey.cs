@@ -1,9 +1,9 @@
-﻿namespace AvHModHelper;
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 
-public class ShadowMonkeyMono : MonoBehaviour
+namespace AvHModHelper.MonoBehaviors;
+
+public class ShadowMonkey : MonoBehaviour
 {
     static readonly EquipmentScript __instance = EquipmentScript.instance;
     

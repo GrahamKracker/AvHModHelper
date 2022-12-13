@@ -1,8 +1,8 @@
-﻿namespace AvHModHelper;
-
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+
+namespace AvHModHelper;
 
 internal static class Helper
 {
@@ -12,7 +12,7 @@ internal static class Helper
     ///     Active mods that use ModHelper functionality
     /// </summary>
     public static IEnumerable<AvHMod> Mods =>
-        mods ??= Melons.OfType<AvHMod>().OrderByDescending(mod => mod.Priority);
+        mods = Melons.OfType<AvHMod>().OrderByDescending(mod => mod.Priority);
 
     /// <summary>
     ///     All active mods, whether they're Mod Helper or not

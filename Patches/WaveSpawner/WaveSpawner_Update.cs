@@ -1,12 +1,10 @@
 ﻿namespace AvHModHelper.Patches.WaveSpawner;
 
-using WaveSpawner = global::WaveSpawner;
-
-[HarmonyPatch(typeof(WaveSpawner), "Update")]
+[HarmonyPatch(typeof(global::WaveSpawner), "Update")]
 internal static class WaveSpawner_Update
 {
     [HarmonyPrefix]
-    internal static bool Prefix(ref WaveSpawner __instance)
+    internal static bool Prefix(ref global::WaveSpawner __instance)
     {
         var result = true;
         var unref = __instance;
@@ -16,7 +14,7 @@ internal static class WaveSpawner_Update
     }
 
     [HarmonyPostfix]
-    internal static void Postfix(WaveSpawner __instance)
+    internal static void Postfix(global::WaveSpawner __instance)
     {
         Helper.PerformHook(mod => mod.PostWaveUpdate(__instance));
     }

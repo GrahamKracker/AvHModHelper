@@ -17,6 +17,8 @@
     </PropertyGroup>
     <ItemGroup>
         <Folder Include="Api\Helpers" />
+        <Folder Include="Api\Mod Settings" />
+        <Folder Include="AssetBundles" />
         <Folder Include="Assets" />
         <Folder Include="Extensions\Bloons" />
         <Folder Include="Extensions\Display" />
@@ -24,11 +26,11 @@
         <Folder Include="Patches\EquipmentScript" />
     </ItemGroup>
     <ItemGroup>
-      <None Remove="AvH.targets" />
-      <EmbeddedResource Include="AvH.targets" />
+      <Content Include=".github\workflows\build.yml" />
     </ItemGroup>
     <ItemGroup>
-      <Content Include=".github\workflows\build.yml" />
+      <None Remove="AvH.targets" />
+      <EmbeddedResource Include="AvH.targets" />
     </ItemGroup>
      
     <Import Condition="Exists('..\AvH.targets')" Project="..\AvH.targets" />

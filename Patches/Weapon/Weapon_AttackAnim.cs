@@ -1,12 +1,10 @@
 ﻿namespace AvHModHelper.Patches.Weapon;
 
-using Weapon = global::Weapon;
-
-[HarmonyPatch(typeof(Weapon), "AttackAnim")]
+[HarmonyPatch(typeof(global::Weapon), "AttackAnim")]
 internal static class Weapon_AttackAnim
 {
     [HarmonyPrefix]
-    internal static bool Prefix(ref Weapon __instance)
+    internal static bool Prefix(ref global::Weapon __instance)
     {
         var result = true;
         var unref = __instance;
@@ -16,7 +14,7 @@ internal static class Weapon_AttackAnim
     }
 
     [HarmonyPostfix]
-    internal static void Postfix(Weapon __instance)
+    internal static void Postfix(global::Weapon __instance)
     {
         Helper.PerformHook(mod => mod.PostAttackAnim(__instance));
     }

@@ -1,12 +1,10 @@
 ﻿namespace AvHModHelper.Patches.PlayerHealth;
 
-using PlayerHealth = global::PlayerHealth;
-
-[HarmonyPatch(typeof(PlayerHealth), nameof(PlayerHealth.UpdateHealth))]
+[HarmonyPatch(typeof(global::PlayerHealth), nameof(global::PlayerHealth.UpdateHealth))]
 internal static class PlayerHealth_UpdateHealth
 {
     [HarmonyPrefix]
-    internal static bool Prefix(ref PlayerHealth __instance, ref int amount)
+    internal static bool Prefix(ref global::PlayerHealth __instance, ref int amount)
     {
         var result = true;
         var unrefamount = amount;
@@ -18,7 +16,7 @@ internal static class PlayerHealth_UpdateHealth
     }
 
     [HarmonyPostfix]
-    internal static void Postfix(PlayerHealth __instance, int amount)
+    internal static void Postfix(global::PlayerHealth __instance, int amount)
     {
         Helper.PerformHook(mod => mod.PostHealthAdded(__instance, amount));
     }

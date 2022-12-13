@@ -1,12 +1,10 @@
 ﻿namespace AvHModHelper.Patches.Enemy;
 
-using Enemy = global::Enemy;
-
-[HarmonyPatch(typeof(Enemy), nameof(Enemy.Start))]
+[HarmonyPatch(typeof(global::Enemy), nameof(global::Enemy.Start))]
 internal static class Enemy_Start
 {
     [HarmonyPrefix]
-    internal static bool Prefix(ref Enemy __instance)
+    internal static bool Prefix(ref global::Enemy __instance)
     {
         var result = true;
         var unref = __instance;
@@ -16,7 +14,7 @@ internal static class Enemy_Start
     }
 
     [HarmonyPostfix]
-    internal static void Postfix(Enemy __instance)
+    internal static void Postfix(global::Enemy __instance)
     {
         Helper.PerformHook(mod => mod.PostBloonLoaded(__instance));
     }
